@@ -19,4 +19,33 @@ export class DataService {
       throw error;
     }
   }
+
+  async addBook(book: Book): Promise<Book> {
+    try {
+      const response = await axios.post<Book>(this.apiUrl, book);
+      return response.data;
+    } catch (error) {
+      console.error('Error adding book:', error);
+      throw error;
+    }
+  }
+
+  async updateBook(id: number, book: Book): Promise<Book> {
+    try {
+      const response = await axios.put<Book>(`${this.apiUrl}/${id}`, book);
+      return response.data;
+    } catch (error) {
+      console.error('Error updating book:', error);
+      throw error;
+    }
+  }
+
+  async deleteBook(id: number): Promise<void> {
+    try {
+      await axios.delete(`${this.apiUrl}/${id}`);
+    } catch (error) {
+      console.error('Error deleting book:', error);
+      throw error;
+    }
+  }
 }
